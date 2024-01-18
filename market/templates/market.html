@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{%block title%}
+Market page
+{% endblock %}
+{% block content %}
+
+<div class="row" style="margin-top:20px; margin-left: 20px;">
+    <div class="col-8 position-relative overflow-hidden p-3 p-md-5  text-center " style="color: white;  background-color: rgba(111, 141, 172, 0.5);">
+        <h2 style="text-align: center; color:black">Available in the Hotel</h2>
+        <table class="table table-hover ">
+            <thead>
+                <tr>
+                    <!-- Your Columns HERE -->
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Barcode</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Your rows inside the table HERE: -->
+                    {% for item in items %}
+                    {% include 'includes/items_modals.html' %}
+                        <tr>
+                            <td><strong>{{ item.id }}</strong></td>
+                            <td><strong>{{ item.name }}</strong></td>
+                            <td><strong>{{ item.barcode }}</strong></td>
+                            <td><strong>{{ item.price }}$</strong></td>
+                            <td>
+                                <button class="btn btn-outline btn-info" data-toggle="modal"
+                                 data-target="#Modal-MoreInfo-{{ item.id }} ">Info
+                                </button>
+                                <button class="btn btn-outline btn-success" data-toggle="modal"
+                                 data-target="#Modal-PurchaseConfirm-{{ item.id }}">Rent Item
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-4" >
+        <h2 class="col-8 position-relative overflow-hidden p-3 p-md-5  text-center " style="color: rgb(0, 0, 0);  background-color: rgba(111, 141, 172, 0.5);">Owned Items</h2>
+        <div class="row" >
+            {% for owned_item in owned_items %}
+            {% include 'includes/owned_items_modals.html' %}
+              <div class="col-md-6">
+                  <div style="background-color: rgba(0, 0, 0, 0);" class="card text-center bg-info">
+                       <div class="card-body">
+                            <h5 class="card-title">{{ owned_item.name }}</h5>
+                            <button type="button" class="btn btn-warning" style="margin-bottom: 5px" 
+                            data-toggle="modal" data-target="#Modal-SellingConfirm-{{ owned_item.id }}">
+                                Return 
+                            </button>
+                            <p class="card-text"><strong> This item costs {{ owned_item.price }}$ </strong>
+                            </p>
+                       </div>
+                   </div>
+              </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+        
+    body {
+      overflow-x: hidden;
+      background-image: url('https://img.freepik.com/free-photo/pet-accessories-still-life-concept-with-colorful-objects_23-2148949578.jpg?w=1380&t=st=1705415783~exp=1705416383~hmac=a19268464f0aa7ba70862ffee402e8744180b17d8b0eff74e1e53ef0bf21b6bb');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+  } 
+    
+ </style> 
+{% endblock%}
